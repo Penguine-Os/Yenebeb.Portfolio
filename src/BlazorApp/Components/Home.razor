@@ -1,25 +1,41 @@
+@using System.Text.Json
 <section class="dark" id="home">
     @if (hero is not null)
     {
-        <img class="background" src="@(hero.Src)" alt="@(hero.Alt)" />
+        <img class="background" src="@(hero.Src)" alt="@(hero.Alt)"/>
     }
-    <div style="position: absolute; top: 30%; left: 2rem;">
-    @if (property is null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <h1>@property.Name</h1>
-        <h2>@property.Title</h2>
-    }
+    <div style="position: absolute; top: 30%; ">
+     
+       
+            <MudCard Outlined="true" Style="opacity: 0.9" Class="rounded-lg p-10">
+                <MudCardContent>
+                    <MudText Typo="Typo.h5" Color="Color.Secondary">I'm</MudText>
+                    <MudText Typo="Typo.h2" Color="Color.Primary">@property?.Name</MudText>
+                    <MudText Typo="Typo.h4" Color="Color.Secondary">
+                        <span  id="typed-text" @ref="TypedTextElement"></span>
+                    </MudText> 
+                </MudCardContent>
+                <MudCardActions>
+                    <MudSpacer/>
+                    <MudButton Class="me-3 mb-3" 
+                               Variant="Variant.Outlined" 
+                               Color="Color.Tertiary" 
+                               IconSize="Size.Large" 
+                               EndIcon="@Icons.Material.Filled.Download"
+                               OnClick="DownloadCvHandler">Download Cv</MudButton>
+                </MudCardActions>
+            </MudCard>
     </div>
-    <div style="position: absolute; bottom: 8rem; left: 50%;">
-        <img src="images/down-arrow.svg" style="height: 3rem; width: 3rem;" alt="scroll down" />
-    </div>
+    @* <div style="position: absolute; bottom: 8rem; left: 50%;"> *@
+    @*     <img src="images/down-arrow.svg" style="height: 3rem; width: 3rem;" alt="scroll down" /> *@
+    @* </div> *@
 </section>
 
 @code {
+
+    [Inject]
+    protected IJSRuntime Js { get; set; } = null!;
+
     [Parameter, EditorRequired]
     public required HttpClient Http { get; set; }
 
@@ -32,6 +48,48 @@
     protected override async Task OnInitializedAsync()
     {
         property = await Http.GetFromJsonAsync<SiteProperties>("sample-data/siteproperties.json");
-        hero = await HeroImageService.GetHeroAsync(img => img.Name is "home");
+        hero = await HeroImageService.GetHeroAsync(img => img.Name is "home2");
+        
+      
     }
+
+    private ElementReference TypedTextElement;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var parameters = new
+            {
+                Arg1 = new List<string>
+                {
+                    ".Net",
+                    "Full-Stack",
+                    "Developer",
+                    "Cross-Fit Enthusiast",
+                    "Self-Reliant",
+                    "Team-Player",
+                    "Pizza Devourer"
+                },
+                Arg2 = TypedTextElement
+            };
+
+            try
+            {
+                await Js.InvokeVoidAsync("initializeTyped", parameters);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                 
+            }
+           
+        }
+    }
+
+    private Task DownloadCvHandler()
+    {
+        throw new NotImplementedException();
+    }
+
 }

@@ -20,19 +20,10 @@ div#main {
 
 section {
   position: relative;
+    min-height: 100vh;
 }
 
-section.dark {
-  min-height: 100vh;
-  color: white;
-  background: rgba(0, 0, 0, 0.25);
-}
 
-section.light {
-  color: black;
-  background: rgba(255, 255, 255, 0.35);
-  padding: 8rem 0;
-}
 
 section img.background {
   width: 100vmax;

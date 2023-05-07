@@ -1,5 +1,127 @@
-﻿@inherits LayoutComponentBase
+﻿@using MudBlazor.Services
+@using MudBlazor.Utilities
+@inherits LayoutComponentBase
 
-<div id="main">
-    @Body
-</div>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+<MudThemeProvider Theme="_myCustomTheme"/>
+
+<MudLayout>
+    @if (_currenBreakpoint == Breakpoint.Xs)
+    {
+        <MudAppBar Elevation="0">
+            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())"/>
+            <MudSpacer/>
+            <MudIconButton Icon="@Icons.Custom.Brands.MudBlazor" Color="Color.Inherit" Link="https://mudblazor.com/" Target="_blank"/>
+            <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/MudBlazor/MudBlazor/" Target="_blank"/>
+        </MudAppBar>
+    }
+
+    <MudDrawer @bind-Open="_drawerOpen" Elevation="1" Anchor="Anchor" Variant="Variant">
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h6">Portfolio</MudText>
+        </MudDrawerHeader>
+        <NavMenu/>
+    </MudDrawer>
+    <MudMainContent Class="pt-0 px-0">
+        <MudContainer >
+            @Body
+         
+        </MudContainer>
+
+        
+    </MudMainContent>
+</MudLayout>
+@* *@
+@* <div id="main"> *@
+@*     @Body *@
+@* </div> *@
+
+@code {
+
+
+    [Inject]
+    IBreakpointService BreakpointListener { get; set; }
+
+
+    [Inject]
+    protected IJSRuntime Js { get; set; } = null!;
+
+
+    private MudTheme _myCustomTheme { get; set; }
+
+    private Guid _subscriptionId;
+    private Breakpoint _currenBreakpoint;
+
+    bool _drawerOpen = true;
+    bool _topDrawerVisible;
+    public DrawerVariant Variant { get; set; } = DrawerVariant.Persistent;
+    public Anchor Anchor { get; set; }
+
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    protected override void OnInitialized()
+    {
+        _myCustomTheme = new MudTheme
+        {
+            Palette = new Palette()
+            {
+                 
+                Background = "#2E2E2E", 
+                Surface = "#262626",
+                Primary = (MudColor)"#f9f5eb",
+                Secondary = (MudColor)"#ea5455",
+                Tertiary = (MudColor)"#57C5b6",
+                AppbarBackground = (MudColor)"#57C5b6",
+                DrawerBackground = (MudColor)"#57C5b6",
+            },
+            LayoutProperties = new LayoutProperties
+            {
+                DrawerWidthLeft = "300px",
+            }
+        };
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var subscriptionResult = await BreakpointListener.Subscribe(WindowSizeChangeHandler, new ResizeOptions
+            {
+                ReportRate = 250,
+                NotifyOnBreakpointOnly = true,
+            });
+
+            _currenBreakpoint = subscriptionResult.Breakpoint;
+            _subscriptionId = subscriptionResult.SubscriptionId;
+            StateHasChanged();
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private void WindowSizeChangeHandler(Breakpoint breakpoint)
+    {
+        _currenBreakpoint = breakpoint;
+
+        if (breakpoint == Breakpoint.Xs)
+        {
+            _drawerOpen = false;
+            Variant = DrawerVariant.Temporary;
+            Anchor = Anchor.Top;
+        }
+        else if (breakpoint == Breakpoint.Sm || breakpoint == Breakpoint.Md || breakpoint == Breakpoint.Lg || breakpoint == Breakpoint.Xl || breakpoint == Breakpoint.Xxl)
+        {
+            _drawerOpen = true;
+            Variant = DrawerVariant.Persistent;
+            Anchor = Anchor.Left;
+        }
+        InvokeAsync(StateHasChanged);
+    }
+
+
+}
