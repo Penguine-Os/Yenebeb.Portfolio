@@ -1,0 +1,12 @@
+﻿::deep .mud-nav-link:hover  {
+    color: #ea5455;
+}
+
+::deep .mud-nav-link {
+    color: #f9f5eb;
+    font-size: larger;
+    font-weight: bolder;    
+}
+::deep .activeLink{
+    background-color: #ea5455;
+}

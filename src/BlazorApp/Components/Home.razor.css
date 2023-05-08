@@ -1,0 +1,7 @@
+﻿::deep  .mud-button{
+    border: 5px;
+}
+::deep .mud-button-label{
+    font-size: larger;
+    font-weight: bolder;
+}

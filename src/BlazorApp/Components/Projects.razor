@@ -1,0 +1,38 @@
+﻿<MudGrid>
+    @foreach (var project in ProjectList)
+       {
+           <MudItem   sm="12"  md="6" key="@Guid.NewGuid().ToString()">
+               <MudCard Class="rounded-lg" >
+                   <MudCardMedia Image="images/pilars.jpg" Height="250" />
+                   <MudCardContent>
+                       <MudText Typo="Typo.h5">@project.Title</MudText>
+                       <MudText Typo="Typo.body2">@project.Description</MudText>
+                   </MudCardContent>
+                   <MudCardActions>
+                       <MudButton Class="ma-2" Variant="Variant.Outlined" Color="Color.Primary">Share</MudButton>
+                       <MudButton Class="ma-2" Variant="Variant.Outlined" Color="Color.Primary">Learn More</MudButton>
+                   </MudCardActions>
+               </MudCard>
+           </MudItem>
+       }
+   
+   
+   
+</MudGrid>
+@* <div class="container"> *@
+@*     @foreach (var project in ProjectList) *@
+@*     { *@
+@*         <div class="box" key="@Guid.NewGuid().ToString()"> *@
+@*             <a href="@project.Url" target="_blank" rel="noopener noreferrer"> *@
+@*                 <h3 style="flex-basis: 40px;">@project.Title</h3> *@
+@*             </a> *@
+@*             <p class="small">@project.Description</p> *@
+@*         </div> *@
+@*     } *@
+@* </div> *@
+
+@code
+{
+    [Parameter]
+    public List<Project> ProjectList { get; set; } = new List<Project>();
+}
