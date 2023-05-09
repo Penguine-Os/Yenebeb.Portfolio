@@ -1,5 +1,5 @@
 <section id="portfolio" class="pt-15">
-    <MudText Class="mb-5"  Typo="Typo.h4" Color="Color.Secondary">Projects</MudText>
+    <MudText Class="mb-5 text"  Typo="Typo.h4" Color="Color.Secondary">Projects</MudText>
     <MudDivider Class="mb-5" DividerType="DividerType.FullWidth"/>
     <Projects ProjectList="projects"/>
 </section>
@@ -11,12 +11,10 @@
     [Parameter, EditorRequired]
     public required HeroImageService HeroImageService { get; set; }
 
-    private List<Project>? projects;
-    private HeroImage? hero;
-
+    private List<Project>? projects = new ();
+    
     protected override async Task OnInitializedAsync()
     {
         projects = await Http.GetFromJsonAsync<List<Project>>("sample-data/projects.json");
-        hero = await HeroImageService.GetHeroAsync(img => img.Name is "portfolio");
     }
 }

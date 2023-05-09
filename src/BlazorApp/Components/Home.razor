@@ -86,10 +86,15 @@
            
         }
     }
-
-    private Task DownloadCvHandler()
+ 
+    private async Task DownloadCvHandler()
     {
-        throw new NotImplementedException();
+        var fileStream = await Http.GetStreamAsync("Files/CV_YENEBEB_DF.pdf");
+        var fileName = "CV_YENEBEB_DF.pdf";
+
+        using var streamRef = new DotNetStreamReference(stream: fileStream);
+
+        await Js.InvokeVoidAsync("downloadFileFromStream", fileName, streamRef);
     }
 
 }
