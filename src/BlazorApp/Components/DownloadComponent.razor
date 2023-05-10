@@ -1,0 +1,29 @@
+﻿  <MudButton Class="me-3 mb-3" 
+                               Variant="Variant.Outlined" 
+                               Color="Color.Tertiary" 
+                               EndIcon="@Icons.Material.Filled.Download"
+                               OnClick="DownloadCvHandler">@Action</MudButton>
+@code {
+    [Inject]
+    protected IJSRuntime Js { get; set; } = null!;
+    
+    [Parameter, EditorRequired]
+    public required HttpClient Http { get; set; }
+    
+    [Parameter, EditorRequired]
+    public string FilePath { get; set; }
+    [Parameter, EditorRequired]
+    public string OutputFileName { get; set; }
+    [Parameter, EditorRequired]
+    public string Action { get; set; }
+
+    private async Task DownloadCvHandler()
+    {
+        var fileStream = await Http.GetStreamAsync(FilePath);
+        
+        using var streamRef = new DotNetStreamReference(stream: fileStream);
+    
+        await Js.InvokeVoidAsync("downloadFileFromStream", OutputFileName, streamRef); 
+    }
+
+}

@@ -1,13 +1,11 @@
 @using System.Text.Json
-<section class="dark" id="home">
+<section   id="home">
     @if (hero is not null)
     {
         <img class="background" src="@(hero.Src)" alt="@(hero.Alt)"/>
     }
     <div style="position: absolute; top: 30%; ">
-     
-       
-            <MudCard Outlined="true" Style="opacity: 0.9" Class="rounded-lg p-10">
+        <MudCard Outlined="true" Style="opacity: 0.9" Class="rounded-lg p-10">
                 <MudCardContent>
                     <MudText Typo="Typo.h5" Color="Color.Secondary">I'm</MudText>
                     <MudText Typo="Typo.h2">@property?.Name</MudText>
@@ -17,18 +15,14 @@
                 </MudCardContent>
                 <MudCardActions>
                     <MudSpacer/>
-                    <MudButton Class="me-3 mb-3" 
-                               Variant="Variant.Outlined" 
-                               Color="Color.Tertiary" 
-                               IconSize="Size.Large" 
-                               EndIcon="@Icons.Material.Filled.Download"
-                               OnClick="DownloadCvHandler">Download Cv</MudButton>
+                    <DownloadComponent Action="Download Cv" Http="Http" FilePath="File/CV_YENEBEB_DF.pdf" OutputFileName="Yenebeb-Cv.pdf"/>
                 </MudCardActions>
             </MudCard>
     </div>
-    @* <div style="position: absolute; bottom: 8rem; left: 50%;"> *@
-    @*     <img src="images/down-arrow.svg" style="height: 3rem; width: 3rem;" alt="scroll down" /> *@
-    @* </div> *@
+    <div style="position: absolute; bottom: 4rem; left: 50%;">
+        <MudIconButton Href="#about" Target="_top"  Color="Color.Secondary" Size="Size.Large" Icon="@Icons.Material.Filled.KeyboardDoubleArrowDown"/>
+      
+    </div>
 </section>
 
 @code {
@@ -48,7 +42,7 @@
     protected override async Task OnInitializedAsync()
     {
         property = await Http.GetFromJsonAsync<SiteProperties>("sample-data/siteproperties.json");
-        hero = await HeroImageService.GetHeroAsync(img => img.Name is "home2");
+        hero = await HeroImageService.GetHeroAsync(img => img.Name is "home");
         
       
     }

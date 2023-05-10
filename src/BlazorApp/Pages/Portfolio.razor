@@ -1,3 +1,7 @@
+﻿@page "/portfolio"
+@inject HttpClient Http
+@inject HeroImageService HeroImageService
+
 <section id="portfolio" class="pt-15">
     <MudText Class="mb-5 text"  Typo="Typo.h4" Color="Color.Secondary">Projects</MudText>
     <MudDivider Class="mb-5" DividerType="DividerType.FullWidth"/>
@@ -5,12 +9,8 @@
 </section>
 
 @code {
-    [Parameter, EditorRequired]
-    public required HttpClient Http { get; set; }
-
-    [Parameter, EditorRequired]
-    public required HeroImageService HeroImageService { get; set; }
-
+  
+     
     private List<Project>? projects = new ();
     
     protected override async Task OnInitializedAsync()

@@ -1,7 +1,9 @@
-﻿::deep  .mud-button{
-    border: 5px;
-}
+
 ::deep .mud-button-label{
     font-size: larger;
     font-weight: bolder;
+}
+
+::deep  .mud-svg-icon.mud-icon-size-large  {
+    font-size: 3.5rem !important;
 }

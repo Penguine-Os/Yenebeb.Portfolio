@@ -1,22 +1,8 @@
 [
+ 
   {
     "name": "home",
-    "src": "images/woman-with-tablet.jpg",
-    "alt": "woman with glasses holding a tablet"
-  }, 
-  {
-    "name": "home2",
     "src": "images/dev-dark.jpg",
-    "alt": "woman with glasses holding a tablet"
-  },
-  {
-    "name": "about",
-    "src": "images/motion-background.jpg",
-    "alt": "gray abstract background"
-  },
-  {
-    "name": "portfolio",
-    "src": "images/design-desk.jpeg",
-    "alt": "desktop with books and laptop"
+    "alt": "Dark background image with Laptop"
   }
 ]
