@@ -86,8 +86,6 @@ jobs:
       
     env:
       Github_Api_Token: ${{secrets.API_GITHUB_TOKEN}}
-    
-    run: eco $Github_Api_Token
 
     steps:
     - name: Deploy to GitHub Pages
