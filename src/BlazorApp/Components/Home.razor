@@ -15,7 +15,7 @@
                 </MudCardContent>
                 <MudCardActions>
                     <MudSpacer/>
-                    <DownloadComponent Action="Download Cv" Http="Http" FilePath="File/CV_YENEBEB_DF.pdf" OutputFileName="Yenebeb-Cv.pdf"/>
+                    <DownloadComponent Action="Download Cv" Http="Http" FilePath="File/" OutputFileName="Yenebeb-Cv.pdf"/>
                 </MudCardActions>
             </MudCard>
     </div>
@@ -80,15 +80,4 @@
            
         }
     }
- 
-    private async Task DownloadCvHandler()
-    {
-        var fileStream = await Http.GetStreamAsync("Files/CV_YENEBEB_DF.pdf");
-        var fileName = "CV_YENEBEB_DF.pdf";
-
-        using var streamRef = new DotNetStreamReference(stream: fileStream);
-
-        await Js.InvokeVoidAsync("downloadFileFromStream", fileName, streamRef);
-    }
-
 }
