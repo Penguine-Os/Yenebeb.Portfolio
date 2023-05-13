@@ -20,6 +20,9 @@ public class GithubService : IGithubService
     {
        // string? token = Environment.GetEnvironmentVariable("Github_Api_Token");
        string? token = _configuration["API_GITHUB_TOKEN"];
+       Console.WriteLine("**********************************");
+       Console.WriteLine(token);
+       Console.WriteLine("**********************************");
         _httpClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", token);
         string baseUri = "https://api.github.com/user/repos?per_page=100";
