@@ -27,6 +27,7 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: '7.x'
+        Github_Api_Token: ${{secrets.API_GITHUB_TOKEN}}
 
     # - name: Set basepath on index.html
     #   shell: pwsh
@@ -83,9 +84,6 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-      
-    env:
-      Github_Api_Token: ${{secrets.API_GITHUB_TOKEN}}
 
     steps:
     - name: Deploy to GitHub Pages
