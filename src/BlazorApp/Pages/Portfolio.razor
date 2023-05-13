@@ -1,33 +1,19 @@
-﻿@page "/portfolio"
-@using System.Text.Json
-@inject HttpClient Http
-@inject HeroImageService HeroImageService
+﻿@page "/portfolio" 
+@inject IGithubService GithubService
 
 <section id="portfolio" class="pt-15">
     <MudText Class="mb-5 text" Typo="Typo.h4" Color="Color.Secondary">Projects</MudText>
     <MudDivider Class="mb-5" DividerType="DividerType.FullWidth"/>
-    <Projects ProjectList="projects"/>
-    <MudList Clickable="@true">
-        @foreach (var repo in Repos)
-        {
-            <MudListItem Text="@repo.Name" />
-        }
-    </MudList>
+    <Projects Repositories="Repos"/>
 </section>
 
 @code {
 
-
-    private List<Project> projects = new();
     private List<Repository> Repos = new();
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync ()
     {
-        string? token = Environment.GetEnvironmentVariable("Github_Api_Token");
-        string url = $"https://api.github.com/users/penguine-os/repos?Authorization=Bearer {token}&X-GitHub-Api-Version=2022-11-28&Accept=application/vnd.github+json&per_page =100";
-        projects = await Http.GetFromJsonAsync<List<Project>>("sample-data/projects.json") ??  new();
-        Repos = await Http.GetFromJsonAsync<List<Repository>>(url, new JsonSerializerOptions{PropertyNameCaseInsensitive = true}) ??  new();
-        Console.WriteLine(Repos.Count);
+        Repos = await GithubService.GetPublicRepositories(); 
     }
 
 }

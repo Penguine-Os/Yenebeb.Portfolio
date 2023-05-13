@@ -1,24 +1,39 @@
 ﻿<MudGrid>
-    @foreach (var project in ProjectList)
-       {
-           <MudItem   sm="12"  md="6" key="@Guid.NewGuid().ToString()">
-               <MudCard Class="rounded-lg" >
-                   <MudCardMedia Image="images/pilars.jpg" Height="250" />
-                   <MudCardContent>
-                       <MudText Typo="Typo.h5">@project.Title</MudText>
-                       <MudText Typo="Typo.body2">@project.Description</MudText>
-                   </MudCardContent>
-                   <MudCardActions>
-                       <MudButton Class="ma-2" Variant="Variant.Outlined" Color="Color.Primary">Share</MudButton>
-                       <MudButton Class="ma-2" Variant="Variant.Outlined" Color="Color.Primary">Learn More</MudButton>
-                   </MudCardActions>
-               </MudCard>
-           </MudItem>
-       }
+    @if (!Repositories.Any())
+    {
+        @for (int i = 0; i < 4; i++)
+        {
+            <MudItem sm="12" md="6" key="@Guid.NewGuid().ToString()">
+                <PlaceHolderAnimation/>
+            </MudItem>
+        }
+    }
+    @foreach (var repo in Repositories)
+    {
+        <MudItem sm="12" md="6" key="@Guid.NewGuid().ToString()">
+            <MudCard Class="rounded-lg">
+                <MudCardMedia Image="images/repository-open-graph-template.png" Height="250"/>
+                <MudCardContent>
+                    <MudText Color="Color.Secondary" Typo="Typo.h5">@repo.Name</MudText>
+                    @* <MudText Typo="Typo.body2"></MudText> *@
+                </MudCardContent>
+                <MudCardActions>
+                    <div style="height: 80px">
+                        @foreach (var lang in repo.Languages)
+                        {
+                            <MudChip Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary">@($"{lang.Key}: {String.Format("{0:P2}", lang.Value)}")</MudChip>
+                        }
+                    </div>
+                    <MudSpacer/>
+                    <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Href="@repo.RepoLink" Target="_blank"/>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    }
 </MudGrid>
- 
+
 @code
 {
     [Parameter]
-    public List<Project> ProjectList { get; set; } = new List<Project>();
+    public List<Repository> Repositories { get; set; } = new List<Repository>();
 }
