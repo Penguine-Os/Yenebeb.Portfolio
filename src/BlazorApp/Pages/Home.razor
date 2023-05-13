@@ -1,9 +1,8 @@
-@page "/"
 @page "/home"
 @inject HttpClient Http
 @inject HeroImageService HeroImageService
 
 <PageTitle>Portfolio</PageTitle>
  
-<Home Http=@Http HeroImageService=@HeroImageService />
+<LandingPage Http=@Http HeroImageService=@HeroImageService />
 <About Http=@Http HeroImageService=@HeroImageService /> 

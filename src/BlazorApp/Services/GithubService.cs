@@ -8,15 +8,18 @@ namespace BlazorApp.Services;
 public class GithubService : IGithubService
 {
     private readonly HttpClient _httpClient;
+    private readonly IConfiguration _configuration;
 
-    public GithubService(HttpClient httpClient)
+    public GithubService(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
+        _configuration = configuration;
     }
 
     public async Task<List<Repository>> GetPublicRepositories()
     {
-        string? token = Environment.GetEnvironmentVariable("Github_Api_Token");
+       // string? token = Environment.GetEnvironmentVariable("Github_Api_Token");
+       string? token = _configuration["Github_Api_Token"];
         _httpClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", token);
         string baseUri = "https://api.github.com/user/repos?per_page=100";
