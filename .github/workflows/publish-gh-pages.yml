@@ -69,4 +69,4 @@ jobs:
       id: deployment
       uses: actions/deploy-pages@v1
       with:
-        Github_Api_Token: ${{secrets.API_GITHUB_TOKEN}}
+        apiKey: ${{secrets.APIKEY}}
