@@ -18,8 +18,8 @@ public class GithubService : IGithubService
 
     public async Task<List<Repository>> GetPublicRepositories()
     {
-       // string? token = Environment.GetEnvironmentVariable("Github_Api_Token");
-       string? token = _configuration["APIKEY"];
+        string? token = Environment.GetEnvironmentVariable("Github_Api_Token");
+       //string? token = _configuration["APIKEY"];
        Console.WriteLine("**********************************");
        Console.WriteLine(token);
        Console.WriteLine("**********************************");
