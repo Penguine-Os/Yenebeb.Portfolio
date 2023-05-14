@@ -19,9 +19,13 @@ public class GithubService : IGithubService
     public async Task<List<Repository>> GetPublicRepositories()
     {
         string? token = Environment.GetEnvironmentVariable("Github_Api_Token");
-       //string? token = _configuration["APIKEY"];
+       string? token2 = _configuration["Github_Api_Token"];
        Console.WriteLine("**********************************");
        Console.WriteLine(token);
+       Console.WriteLine(token2);
+       Console.WriteLine("**********************************"); 
+       Console.WriteLine(_configuration["Github_Api_Key"]);
+       Console.WriteLine(Environment.GetEnvironmentVariable("Github_Api_Key"));
        Console.WriteLine("**********************************");
         _httpClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", token);

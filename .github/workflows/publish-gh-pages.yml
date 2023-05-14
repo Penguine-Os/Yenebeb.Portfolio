@@ -70,3 +70,4 @@ jobs:
       uses: actions/deploy-pages@v1
       env:
         Github_Api_Token: ${{ secrets.APIKEY }}
+        Github_Api_Key: ${{ secrets.API_GITHUB_TOKEN }}
