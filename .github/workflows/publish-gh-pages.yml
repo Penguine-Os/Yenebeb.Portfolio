@@ -68,6 +68,9 @@ jobs:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v1
+      with: 
+        api_key: ${{ secrets.APIKEY }}
+        api_token: ${{ secrets.API_GITHUB_TOKEN }}
       env:
         Github_Api_Token: ${{ secrets.APIKEY }}
         Github_Api_Key: ${{ secrets.API_GITHUB_TOKEN }}

@@ -26,6 +26,12 @@ public class GithubService : IGithubService
        Console.WriteLine("**********************************"); 
        Console.WriteLine(_configuration["Github_Api_Key"]);
        Console.WriteLine(Environment.GetEnvironmentVariable("Github_Api_Key"));
+       Console.WriteLine("**********************************"); 
+       Console.WriteLine(_configuration["api_key"]);
+       Console.WriteLine(Environment.GetEnvironmentVariable("api_key"));
+       Console.WriteLine("**********************************");
+       Console.WriteLine(_configuration["api_token"]);
+       Console.WriteLine(Environment.GetEnvironmentVariable("api_token"));
        Console.WriteLine("**********************************");
         _httpClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", token);
