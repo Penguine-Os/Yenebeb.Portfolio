@@ -1,4 +1,5 @@
-﻿<MudGrid>
+﻿@using System.Text.Json
+<MudGrid>
     @if (!Repositories.Any())
     {
         @for (int i = 0; i < 4; i++)
@@ -11,7 +12,7 @@
     @foreach (var repo in Repositories)
     {
         <MudItem sm="12" md="6" key="@Guid.NewGuid().ToString()">
-            <MudCard Class="rounded-lg">
+            <MudCard Class="rounded-lg" >
                 <MudCardMedia Image="images/repository-open-graph-template.png" Height="250"/>
                 <MudCardContent>
                     <MudText Color="Color.Secondary" Typo="Typo.h5">@repo.Name</MudText>
@@ -36,4 +37,16 @@
 {
     [Parameter]
     public List<Repository> Repositories { get; set; } = new List<Repository>();
+  
+    public void PrettyWrite(object obj )
+    { 
+        var jsonString = JsonSerializer.Serialize(obj, new JsonSerializerOptions{WriteIndented = true});
+ 
+        //Console.WriteLine(jsonString);
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        PrettyWrite(Repositories);
+    }
 }

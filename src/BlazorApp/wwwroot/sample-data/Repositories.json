@@ -1,0 +1,72 @@
+[
+    {
+      "Name": "2122-TTI-DanielFikreYenebeb-0901225-ProjectDMP",
+      "RepoLink": "#",
+      "Topics": [],
+      "Languages": {
+          "C#": 1
+        },
+      "IsPrivate": true
+    },
+    {
+      "Name": "Donut-Queen-Webshop",
+      "RepoLink": "https://github.com/Penguine-Os/Donut-Queen-Webshop",
+      "Topics": [],
+      "Languages": {
+          "C#": 0.7195741374245453,
+          "TSQL": 0.2804258625754546
+        },
+      "IsPrivate": false
+    },
+    {
+      "Name": "Fitality-Fitness-App",
+      "RepoLink": "https://github.com/Penguine-Os/Fitality-Fitness-App",
+      "Topics": [],
+      "Languages": {
+        "TypeScript": 0.32,
+        "HTML": 0.1,
+        "SCSS": 0.06,
+        "JavaScript": 0.01,
+        "Java": 0.006
+        },
+      "IsPrivate": false
+    },
+ 
+    {
+      "Name": "Whish-List-WebApp",
+      "RepoLink": "https://github.com/Penguine-Os/Whish-List-WebApp",
+      "Topics": [],
+      "Languages": {
+          "CSS": 0.2863944129175792,
+          "JavaScript": 0.2467955778640746,
+          "C#": 0.21041315061709515,
+          "SCSS": 0.18381831301231155,
+          "HTML": 0.06823942939711773,
+          "TSQL": 0.004339116191821707
+        },
+      "IsPrivate": false
+    },
+    {
+      "Name": "WPF-MVVM-CRUD",
+      "RepoLink": "https://github.com/Penguine-Os/WPF-MVVM-CRUD",
+      "Topics": [],
+      "Languages": {
+          "C#": 0.78435,
+        "TSQL": 0.021564
+        },
+      "IsPrivate": false
+    },
+    {
+      "Name": "Yenebeb.Portfolio",
+      "RepoLink": "https://github.com/Penguine-Os/Yenebeb.Portfolio",
+      "Topics": [],
+      "Languages": {
+          "TypeScript": 0.6496636217473705,
+          "HTML": 0.20369522064437318,
+          "SCSS": 0.11407219782095156,
+          "JavaScript": 0.020919224309054817,
+          "Java": 0.011649735478249934
+        },
+      "IsPrivate": false
+    }
+  ]

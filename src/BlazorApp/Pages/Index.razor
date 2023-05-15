@@ -1,4 +1,6 @@
 @page "/"
+
+@using BlazorApp.Components.Sections
 @inject HttpClient Http
 @inject HeroImageService HeroImageService
 
@@ -6,3 +8,5 @@
  
 <LandingPage Http=@Http HeroImageService=@HeroImageService />
 <About Http=@Http HeroImageService=@HeroImageService /> 
+<Portfolio/>
+<Contact/>
