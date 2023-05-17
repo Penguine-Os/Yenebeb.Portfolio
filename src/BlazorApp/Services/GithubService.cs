@@ -19,29 +19,19 @@ public class GithubService : IGithubService
     }
 
     public async Task<List<Repository>> GetPublicRepositories()
-    {
-        var url = "https://api.github.com/user/repos?per_page=100";
-        var apiKey = _configuration["api_key"];
-        _httpClient.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue("Bearer", apiKey);
-        var fetchedRepo = new List<Repository>();
+    {var url = "https://6464cffaba2b1c3a48827b12--portfolio-fuctions-typed.netlify.app/.netlify/functions/getRepos";
+    
         try
         {
-            fetchedRepo =await  _httpClient.GetFromJsonAsync<List<Repository>>(url) ??  new List<Repository>();
-            Console.WriteLine("-----------------------------fetched-----------------------------");
-            Console.WriteLine(fetchedRepo.Count);
+            var repositories = await _httpClient.GetFromJsonAsync<List<Repository>>(url);
+            return repositories ?? new List<Repository>();
         }
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
-            
         }
-        string relativePath = "sample-data/Repositories.json";
-        
-        var repos = await _httpClient.GetFromJsonAsync<List<Repository>>(relativePath);
-     
 
-        return repos ?? new ();
+        return new List<Repository>();
     }
    
 }

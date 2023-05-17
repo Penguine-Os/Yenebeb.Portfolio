@@ -1,48 +1,168 @@
 ﻿@using System.Text.Json
-<MudGrid>
-    @if (!Repositories.Any())
-    {
-        @for (int i = 0; i < 4; i++)
-        {
-            <MudItem sm="12" md="6" key="@Guid.NewGuid().ToString()">
-                <PlaceHolderAnimation/>
-            </MudItem>
-        }
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<style>
+
+    .bounceIn {
+        opacity: 0;
+        animation-delay: 0.5s;
+        animation-duration: 0.5s;
+        animation-name: bounceIn;
+        animation-fill-mode: forwards;
     }
+
+    .bounceOut {
+        animation-duration: 0.5s;
+        animation-name: bounceOut;
+        animation-fill-mode: forwards;
+    }
+
+    .backInDown {
+        opacity: 0;
+        animation-delay: 0.5s;
+        animation-duration: 0.5s;
+        animation-name: backInDown;
+        animation-fill-mode: forwards;
+    }
+
+    .backOutDown {
+        animation-duration: 0.5s;
+        animation-name: backOutDown;
+        animation-fill-mode: forwards;
+    }
+
+    .rotateIn {
+        opacity: 0;
+        animation-delay: 0.5s;
+        animation-duration: 0.5s;
+        animation-name: rotateIn;
+        animation-fill-mode: forwards;
+    }
+
+    .rotateOut {
+        animation-duration: 0.5s;
+        animation-name: rotateOut;
+        animation-fill-mode: forwards;
+    }
+</style>
+
+<MudCarousel Class="mud-width-full" TData="object" AutoCycle="false" Style="height: 200px" >
+    <MudCarouselItem Color="@Color.Secondary" Transition="Transition.Slide">
+        <div class="d-flex" style="height:100%">
+            <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Size="@Size.Large" />
+        </div>
+    </MudCarouselItem>
     @foreach (var repo in Repositories)
     {
-        <MudItem sm="12" md="6" key="@Guid.NewGuid().ToString()">
-            <MudCard Class="rounded-lg" >
-                <MudCardMedia Image="images/repository-open-graph-template.png" Height="250"/>
-                <MudCardContent>
-                    <MudText Color="Color.Secondary" Typo="Typo.h5">@repo.Name</MudText>
-                    @* <MudText Typo="Typo.body2"></MudText> *@
-                </MudCardContent>
-                <MudCardActions>
-                    <div style="height: 80px">
-                        @foreach (var lang in repo.Languages)
+        <MudCarouselItem Color="@Color.Dark" Transition="Transition.Custom" CustomTransitionEnter="backInDown" CustomTransitionExit="backOutDown">
+            <div class="d-flex" style="height:100%">
+                <MudCard Class="rounded-lg" Style="width: 100%"> 
+                    <MudCardMedia Image="images/repository-open-graph-template.png" Height="450"/>
+                    <MudCardContent>
+                        <MudText Color="Color.Secondary" Typo="Typo.h5">@repo.name</MudText>
+                        @* <MudText Typo="Typo.body2"></MudText> *@
+                    </MudCardContent>
+                    <MudCardActions>
+                        @foreach (var lang in repo.languages)
                         {
-                            <MudChip Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary">@($"{lang.Key}: {String.Format("{0:P2}", lang.Value)}")</MudChip>
+                            <MudChip Size="Size.Large" Variant="Variant.Outlined" Color="Color.Primary">@($"{lang.Key}: {String.Format("{0:P2}", lang.Value)}")</MudChip>
                         }
+                        <MudSpacer/>
+                        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Href="@repo.html_url" Target="_blank"/>
+                            
+                    </MudCardActions>
+                    <div class="d-none d-lg-block mud-theme-secondary rounded ma-10" style="height: 100%">
+                         <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Size="@Size.Large" />
                     </div>
-                    <MudSpacer/>
-                    <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Href="@repo.RepoLink" Target="_blank"/>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
+                </MudCard>
+                 
+            </div>
+            
+            </MudCarouselItem>
     }
-</MudGrid>
+    
+    @* <MudCarouselItem Color="@Color.Tertiary" Transition="Transition.Custom" CustomTransitionEnter="bounceIn" CustomTransitionExit="bounceOut"> *@
+    @*     <div class="d-flex" style="height:100%"> *@
+    @*         <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Size="@Size.Large" /> *@
+    @*     </div> *@
+    @* </MudCarouselItem> *@
+    @* <MudCarouselItem Transition="Transition.Custom" CustomTransitionEnter="backInDown" CustomTransitionExit="backOutDown"> *@
+    @*     <div class="d-flex" style="background-color:lightgray; height:100%"> *@
+    @*         <MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Color="@Color.Primary" Size="@Size.Large" /> *@
+    @*     </div> *@
+    @* </MudCarouselItem> *@
+
+    @* @foreach (var repo in Repositories) *@
+    @* { *@
+    @*     <div class="d-flex" style="background-color:lightgray; height:100%"> *@
+    @*         <MudCarouselItem Transition="Transition.Custom" CustomTransitionEnter="rotateIn" CustomTransitionExit="rotateOut"> *@
+    @*             <MudCard Class="rounded-lg"> *@
+    @*                 <MudCardMedia Image="images/repository-open-graph-template.png" Height="250"/> *@
+    @*                 <MudCardContent> *@
+    @*                     <MudText Color="Color.Secondary" Typo="Typo.h5">@repo.Name</MudText> *@
+    @*                     $1$ <MudText Typo="Typo.body2"></MudText> #1# *@
+    @*                 </MudCardContent> *@
+    @*                 <MudCardActions> *@
+    @*                     <div style="height: 80px"> *@
+    @*                         @foreach (var lang in repo.Languages) *@
+    @*                         { *@
+    @*                             <MudChip Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary">@($"{lang.Key}: {String.Format("{0:P2}", lang.Value)}")</MudChip> *@
+    @*                         } *@
+    @*                     </div> *@
+    @*                     <MudSpacer/> *@
+    @*                     <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Href="@repo.RepoLink" Target="_blank"/> *@
+    @*                 </MudCardActions> *@
+    @*             </MudCard> *@
+    @*         </MudCarouselItem> *@
+    @*     </div> *@
+    @* } *@
+
+
+</MudCarousel>
+@* <MudGrid> *@
+@*     @if (!Repositories.Any()) *@
+@*     { *@
+@*         @for (int i = 0; i < 4; i++) *@
+@*         { *@
+@*             <MudItem sm="12" md="6" key="@Guid.NewGuid().ToString()"> *@
+@*                 <PlaceHolderAnimation/> *@
+@*             </MudItem> *@
+@*         } *@
+@*     } *@
+@*     @foreach (var repo in Repositories) *@
+@*     { *@
+@*         <MudItem sm="12" md="6" key="@Guid.NewGuid().ToString()"> *@
+@*             <MudCard Class="rounded-lg" > *@
+@*                 <MudCardMedia Image="images/repository-open-graph-template.png" Height="250"/> *@
+@*                 <MudCardContent> *@
+@*                     <MudText Color="Color.Secondary" Typo="Typo.h5">@repo.Name</MudText> *@
+@*                     $1$ <MudText Typo="Typo.body2"></MudText> #1# *@
+@*                 </MudCardContent> *@
+@*                 <MudCardActions> *@
+@*                     <div style="height: 80px"> *@
+@*                         @foreach (var lang in repo.Languages) *@
+@*                         { *@
+@*                             <MudChip Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary">@($"{lang.Key}: {String.Format("{0:P2}", lang.Value)}")</MudChip> *@
+@*                         } *@
+@*                     </div> *@
+@*                     <MudSpacer/> *@
+@*                     <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Href="@repo.RepoLink" Target="_blank"/> *@
+@*                 </MudCardActions> *@
+@*             </MudCard> *@
+@*         </MudItem> *@
+@*     } *@
+@* </MudGrid> *@
 
 @code
 {
     [Parameter]
     public List<Repository> Repositories { get; set; } = new List<Repository>();
-  
-    public void PrettyWrite(object obj )
-    { 
-        var jsonString = JsonSerializer.Serialize(obj, new JsonSerializerOptions{WriteIndented = true});
- 
-        //Console.WriteLine(jsonString);
+
+    public void PrettyWrite(object obj)
+    {
+        var jsonString = JsonSerializer.Serialize(obj, new JsonSerializerOptions { WriteIndented = true });
+
+    //Console.WriteLine(jsonString);
     }
 
     protected override void OnAfterRender(bool firstRender)
