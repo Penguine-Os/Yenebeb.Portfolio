@@ -1,4 +1,4 @@
-﻿using System.Net.Http.Headers;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Xml;
@@ -25,6 +25,16 @@ public class GithubService : IGithubService
         try
         {
             var repositories = await _httpClient.GetFromJsonAsync<List<Repository>>(url);
+
+            for (int i = 0; i < repositories?.Count; i++)
+            {
+                var repository = repositories[i];
+                var totalBytes = repository.languages.Values.Sum();
+                foreach (var language in repository.languages)
+                {
+                    repository.languages[language.Key] = language.Value / totalBytes;
+                }
+            }
             return repositories ?? new List<Repository>();
         }
         catch (Exception e)
