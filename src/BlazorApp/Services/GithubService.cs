@@ -19,7 +19,8 @@ public class GithubService : IGithubService
     }
 
     public async Task<List<Repository>> GetPublicRepositories()
-    {var url = "https://6464cffaba2b1c3a48827b12--portfolio-fuctions-typed.netlify.app/.netlify/functions/getRepos";
+    {
+        var url = "https://yenebeb-df-portfolio.netlify.app/.netlify/functions/githubRepos";
     
         try
         {

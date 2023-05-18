@@ -7,13 +7,14 @@ using MudBlazor.Services;
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.Services.AddCors(opt =>
 {
-    opt.AddPolicy("Policy1",
-        policy =>
-        {
-            policy.WithOrigins("https://localhost:5001/","https://localhost:5000/","https://penguine-os.github.io/Yenebeb.Portfolio/")
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
+    opt.AddDefaultPolicy(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+    // opt.AddPolicy("Policy1",
+    //     policy =>
+    //     {
+    //         policy.AllowAnyOrigin()
+    //             .AllowAnyHeader()
+    //             .AllowAnyMethod();
+    //     });
 }); 
 
 builder.RootComponents.Add<App>("#app");
